@@ -1,4 +1,4 @@
-"""Start Robert here:  python main.py"""
+"""Start Rober here:  python main.py"""
 import sys
 
 from PyQt6.QtGui import QIcon, QAction
@@ -19,7 +19,7 @@ def main():
     controller = Controller(bridge)
     was_open = {"v": False}
 
-    # ---------- the command panel (click Robert to open or close it)
+    # ---------- the command panel (click Rober to open or close it)
     def open_panel():
         pet.hold = True
         bubble.anchor = panel
@@ -61,7 +61,7 @@ def main():
     pet.moved.connect(follow_pet)
 
     # ---------- what you do with the mouse
-    pet.clicked.connect(toggle_panel)              # click Robert -> command box
+    pet.clicked.connect(toggle_panel)              # click Rober -> command box
     pet.type_requested.connect(open_panel)
     pet.mic_requested.connect(controller.on_click)
     pet.quit_requested.connect(app.quit)
@@ -72,14 +72,14 @@ def main():
     # little icon near the clock, so you can always quit
     tray = QSystemTrayIcon(QIcon(pet.frames["idle"][0]), app)
     menu = QMenu()
-    show_action = QAction("Show Robert")
+    show_action = QAction("Show Rober")
     show_action.triggered.connect(lambda: (pet.show(), pet.raise_()))
-    quit_action = QAction("Quit Robert")
+    quit_action = QAction("Quit Rober")
     quit_action.triggered.connect(app.quit)
     menu.addAction(show_action)
     menu.addAction(quit_action)
     tray.setContextMenu(menu)
-    tray.setToolTip("Robert")
+    tray.setToolTip("Rober")
     tray.show()
 
     if not pet.has_real_sprites:

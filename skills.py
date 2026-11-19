@@ -1,4 +1,4 @@
-"""Everything Robert can DO with his hands: open things, change volume, weather, notes, etc."""
+"""Everything Rober can DO with his hands: open things, change volume, weather, notes, etc."""
 import datetime
 import json
 import os
@@ -17,7 +17,7 @@ import config
 class Reply:
     text: str                         # shown in the bubble
     state: str = "jump"               # animation after answering
-    followup: bool = False            # True = Robert listens again right away
+    followup: bool = False            # True = Rober listens again right away
     speak_text: Optional[str] = None  # if different from text
     action: Optional[str] = None      # "quit" etc.
     activity_seconds: Optional[int] = None
@@ -148,16 +148,16 @@ def brightness_change(delta=None, absolute=None):
 
 def screenshot(bridge=None):
     from PIL import ImageGrab
-    folder = os.path.join(os.path.expanduser("~"), "Pictures", "Robert Screenshots")
+    folder = os.path.join(os.path.expanduser("~"), "Pictures", "Rober Screenshots")
     os.makedirs(folder, exist_ok=True)
-    path = os.path.join(folder, "robert_" + time.strftime("%Y%m%d_%H%M%S") + ".png")
+    path = os.path.join(folder, "rober_" + time.strftime("%Y%m%d_%H%M%S") + ".png")
     try:
         if bridge:
             bridge.hide_pet.emit()      # hide myself so I am not in the picture
             time.sleep(0.5)
         img = ImageGrab.grab(all_screens=True)
         img.save(path)
-        return Reply("Screenshot saved in Pictures, in the Robert Screenshots folder.")
+        return Reply("Screenshot saved in Pictures, in the Rober Screenshots folder.")
     except Exception:
         return fail("I could not take a screenshot.")
     finally:
@@ -321,16 +321,34 @@ def foreground_title():
 def try_click_skip():
     """Looks for the Skip button on the screen and clicks it. Returns True if clicked."""
     import pyautogui
+    import pyscreeze
+    from PIL import Image
+
     pyautogui.FAILSAFE = False
-    try:
-        pos = pyautogui.locateCenterOnScreen(SKIP_IMG, confidence=0.8)
-    except Exception:
+    if "youtube" not in foreground_title().lower():
         return False
-    if not pos:
+
+    template = Image.open(SKIP_IMG).convert("RGB")
+    screenshot = pyautogui.screenshot()
+    resampling = getattr(Image, "Resampling", Image).LANCZOS
+    box = None
+    for scale in (0.55, 0.7, 0.85, 1.0, 1.15, 1.3, 1.45, 1.6):
+        size = (round(template.width * scale), round(template.height * scale))
+        resized = template.resize(size, resampling)
+        try:
+            box = pyautogui.locate(resized, screenshot, confidence=0.78)
+        except pyscreeze.ImageNotFoundException:
+            continue
+        if box:
+            break
+    if not box:
         return False
+
     old = pyautogui.position()
-    pyautogui.click(pos.x, pos.y)
-    pyautogui.moveTo(old.x, old.y)
+    try:
+        pyautogui.click(box.left + box.width // 2, box.top + box.height // 2)
+    finally:
+        pyautogui.moveTo(old.x, old.y)
     return True
 
 

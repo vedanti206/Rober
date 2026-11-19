@@ -1,4 +1,4 @@
-"""Robert's body: the puppy window, the speech bubble above his head, and the typing box."""
+"""Rober's body: the puppy window, the speech bubble above his head, and the typing box."""
 import random
 import time
 
@@ -14,7 +14,7 @@ FLAGS = Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint |
 
 
 class Bridge(QObject):
-    """Safe messenger between Robert's helper thread and the screen."""
+    """Safe messenger between Rober's helper thread and the screen."""
     say = pyqtSignal(str, int)      # text, how long to show (ms, 0 = automatic)
     state = pyqtSignal(str)
     quit_app = pyqtSignal()
@@ -104,7 +104,7 @@ class _Edit(QLineEdit):
 
 
 class CommandPanel(QWidget):
-    """The little box that opens when you click Robert: type a command, or press the mic."""
+    """The little box that opens when you click Rober: type a command, or press the mic."""
     submitted = pyqtSignal(str)
     mic_clicked = pyqtSignal()
     closed = pyqtSignal()
@@ -118,7 +118,7 @@ class CommandPanel(QWidget):
 
         self.edit = _Edit(self)
         self.edit.setGeometry(12, 9, 240, 34)
-        self.edit.setPlaceholderText("Tell Robert what to do...")
+        self.edit.setPlaceholderText("Tell Rober what to do...")
         self.edit.setFont(QFont("Segoe UI", 10))
         self.edit.setStyleSheet("QLineEdit { background: #FFFFFF; border: 1px solid #E8B98A;"
                                 " border-radius: 10px; padding: 2px 10px; color: #2B2B2B; }"
@@ -131,7 +131,7 @@ class CommandPanel(QWidget):
                      "QPushButton:hover { background: #F9D3AA; }")
         self.mic = QPushButton("\U0001F3A4", self)
         self.mic.setGeometry(258, 9, 40, 34)
-        self.mic.setToolTip("Talk to Robert")
+        self.mic.setToolTip("Talk to Rober")
         self.mic.setStyleSheet(btn_style)
         self.mic.clicked.connect(self.mic_clicked.emit)
 
@@ -152,7 +152,7 @@ class CommandPanel(QWidget):
         self.closed.emit()
 
     def follow(self, pet):
-        """Sit just above Robert's head."""
+        """Sit just above Rober's head."""
         geo = QGuiApplication.primaryScreen().availableGeometry()
         center = pet.x() + pet.width() // 2
         x = max(geo.left() + 4, min(center - self.width() // 2, geo.right() - self.width() - 4))
@@ -234,7 +234,7 @@ class PetWindow(QWidget):
         self.update()
 
     def external_state(self, name):
-        """Called when Robert's brain wants a new animation (counts as activity)."""
+        """Called when Rober's brain wants a new animation (counts as activity)."""
         self.touch()
         if name in ("run_left", "run_right"):
             name = "idle"
@@ -258,6 +258,10 @@ class PetWindow(QWidget):
 
     def paintEvent(self, _):
         p = QPainter(self)
+        p.setCompositionMode(QPainter.CompositionMode.CompositionMode_Source)
+        p.fillRect(self.rect(), Qt.GlobalColor.transparent)
+        p.setCompositionMode(QPainter.CompositionMode.CompositionMode_SourceOver)
+
         pm = self.frames[self.state][self.frame_i % len(self.frames[self.state])]
         x = (self.width() - pm.width()) // 2
         y = self.height() - pm.height()
@@ -339,11 +343,11 @@ class PetWindow(QWidget):
     def contextMenuEvent(self, e):
         self.touch()
         menu = QMenu(self)
-        menu.addAction("Talk to Robert (microphone)").triggered.connect(self.mic_requested.emit)
+        menu.addAction("Talk to Rober (microphone)").triggered.connect(self.mic_requested.emit)
         menu.addAction("Open command box").triggered.connect(self.type_requested.emit)
         menu.addSeparator()
         menu.addAction("Say hi").triggered.connect(lambda: self.external_state("wave"))
         menu.addAction("Go to sleep").triggered.connect(lambda: self.set_state("sleep"))
         menu.addSeparator()
-        menu.addAction("Quit Robert").triggered.connect(self.quit_requested.emit)
+        menu.addAction("Quit Rober").triggered.connect(self.quit_requested.emit)
         menu.exec(e.globalPos())

@@ -1,4 +1,4 @@
-"""The router: reads what you said and decides what Robert should do."""
+"""The router: reads what you said and decides what Rober should do."""
 import random
 import re
 import threading
@@ -42,7 +42,7 @@ class Assistant:
     @staticmethod
     def normalize(text):
         t = text.lower().strip()
-        t = re.sub(r"^(?:(?:hey|hi|hello|ok|okay)[, ]+)?robert[,:! ]*", "", t).strip()
+        t = re.sub(r"^(?:(?:hey|hi|hello|ok|okay)[, ]+)?rober[,:! ]*", "", t).strip()
         t = re.sub(r"[?.!]+$", "", t).strip()
         return t
 
@@ -55,8 +55,8 @@ class Assistant:
             try:
                 if "youtube" in skills.foreground_title().lower() and skills.try_click_skip():
                     self.bridge.say.emit("Skipped an ad!", 2000)
-            except Exception:
-                pass
+            except Exception as e:
+                print("Auto-skip problem:", repr(e))
 
     # ------------------------------------------------------------ main entry
     def handle(self, text):
@@ -78,8 +78,8 @@ class Assistant:
         self._state("run")
         try:
             reply = self.route(t, raw)
-        except Exception as e:   # never crash Robert
-            print("Robert error:", repr(e))
+        except Exception as e:   # never crash Rober
+            print("Rober error:", repr(e))
             return fail("Oops! Something went wrong with that.")
         return reply
 
@@ -89,7 +89,7 @@ class Assistant:
         if re.fullmatch(r"(hi|hello|hey|good (morning|afternoon|evening)|namaste)( there)?", t):
             return Reply("Woof! Hello! How can I help?", "wave")
         if re.search(r"\b(who are you|your name|what are you)\b", t):
-            return Reply("I am Robert, your desktop puppy helper! Woof!", "wave")
+            return Reply("I am Rober, your desktop puppy helper! Woof!", "wave")
         if re.search(r"\bwhat can you do\b|\byour commands\b|\bwhat do you do\b", t) or t == "help":
             return Reply(HELP_TEXT, "wave")
         if re.search(r"\b(thank you|thanks)\b", t):
@@ -114,7 +114,7 @@ class Assistant:
             return Reply(text, state, speak_text=text)
 
         if re.search(r"\b(smart|clever|brainy)\b", t) and re.search(
-                r"\b(you|your|robert|are|look|picture|show)\b", t):
+                r"\b(you|your|rober|are|look|picture|show)\b", t):
             return Reply("Aww, thank you! I'm thinking hard!", "smart",
                          speak_text="Aww, thank you! I'm thinking hard!")
 
@@ -122,25 +122,25 @@ class Assistant:
             return Reply("Hiiii! Hello!", "wave", speak_text="Hiiii! Hello!")
 
         if re.search(r"\b(play|start|show)\b.*\b(chess|games?)\b", t):
-            return Reply("I'll play my chess animation for 30 seconds. Say Robert to stop me.",
-                         "games_activity", speak_text="I'll play chess for 30 seconds. Say Robert to stop me.",
+            return Reply("I'll play my chess animation for 30 seconds. Say Rober to stop me.",
+                         "games_activity", speak_text="I'll play chess for 30 seconds. Say Rober to stop me.",
                          activity_seconds=config.GAMES_ACTIVITY_SECONDS)
 
         if re.fullmatch(r"play(?: for (?:some time|a while|a bit))?", t):
-            return Reply("I'll play my chess animation for 30 seconds. Say Robert to stop me.",
-                         "games_activity", speak_text="I'll play chess for 30 seconds. Say Robert to stop me.",
+            return Reply("I'll play my chess animation for 30 seconds. Say Rober to stop me.",
+                         "games_activity", speak_text="I'll play chess for 30 seconds. Say Rober to stop me.",
                          activity_seconds=config.GAMES_ACTIVITY_SECONDS)
 
         if (re.fullmatch(r"read", t)
                 or re.search(r"\b(read|reading)\b.*\b(book|story)\b", t)
                 or re.fullmatch(r"(?:start )?reading(?: for (?:some time|a while))?", t)):
-            return Reply("Okay, I'll read for a while. Say Robert when you want me to stop.",
-                         "read_activity", speak_text="Okay, I'll read. Say Robert when you want me to stop.")
+            return Reply("Okay, I'll read for a while. Say Rober when you want me to stop.",
+                         "read_activity", speak_text="Okay, I'll read. Say Rober when you want me to stop.")
 
         # ---- sleep, quit, voice on / off
         if re.search(r"\b(go to sleep|good night|sleep now|take a nap)\b", t):
             return Reply("Okay, good night! Zzz...", "sleep")
-        if re.fullmatch(r"(good ?bye|bye( bye)?|quit|exit|close yourself|close robert|shut down)( robert)?", t):
+        if re.fullmatch(r"(good ?bye|bye( bye)?|quit|exit|close yourself|close rober|shut down)( rober)?", t):
             return Reply("Bye bye! See you soon!", "wave", action="quit")
         if re.search(r"\b(be quiet|stop talking|mute yourself|do not speak|don't speak)\b", t):
             self.speak_enabled = False
