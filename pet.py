@@ -258,6 +258,10 @@ class PetWindow(QWidget):
 
     def paintEvent(self, _):
         p = QPainter(self)
+        p.setCompositionMode(QPainter.CompositionMode.CompositionMode_Source)
+        p.fillRect(self.rect(), Qt.GlobalColor.transparent)
+        p.setCompositionMode(QPainter.CompositionMode.CompositionMode_SourceOver)
+
         pm = self.frames[self.state][self.frame_i % len(self.frames[self.state])]
         x = (self.width() - pm.width()) // 2
         y = self.height() - pm.height()

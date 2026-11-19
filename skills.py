@@ -321,16 +321,34 @@ def foreground_title():
 def try_click_skip():
     """Looks for the Skip button on the screen and clicks it. Returns True if clicked."""
     import pyautogui
+    import pyscreeze
+    from PIL import Image
+
     pyautogui.FAILSAFE = False
-    try:
-        pos = pyautogui.locateCenterOnScreen(SKIP_IMG, confidence=0.8)
-    except Exception:
+    if "youtube" not in foreground_title().lower():
         return False
-    if not pos:
+
+    template = Image.open(SKIP_IMG).convert("RGB")
+    screenshot = pyautogui.screenshot()
+    resampling = getattr(Image, "Resampling", Image).LANCZOS
+    box = None
+    for scale in (0.55, 0.7, 0.85, 1.0, 1.15, 1.3, 1.45, 1.6):
+        size = (round(template.width * scale), round(template.height * scale))
+        resized = template.resize(size, resampling)
+        try:
+            box = pyautogui.locate(resized, screenshot, confidence=0.78)
+        except pyscreeze.ImageNotFoundException:
+            continue
+        if box:
+            break
+    if not box:
         return False
+
     old = pyautogui.position()
-    pyautogui.click(pos.x, pos.y)
-    pyautogui.moveTo(old.x, old.y)
+    try:
+        pyautogui.click(box.left + box.width // 2, box.top + box.height // 2)
+    finally:
+        pyautogui.moveTo(old.x, old.y)
     return True
 
 

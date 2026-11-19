@@ -107,7 +107,7 @@ Check it worked: press the Windows key, type `cmd`, press Enter. In the black wi
 2. Paste it into Paint and save it as `assets\skip_button.png` in the Robert folder.
 3. Say or type **"skip the ad"** to skip once, **"auto skip ads on"** to enable automatic skipping, or **"stop skipping ads"** to turn it off.
 
-Automatic skipping only works while a YouTube window is active and the ad has a visible Skip button. If OpenCV is missing, install it with `python -m pip install opencv-python`.
+Automatic skipping only works while the YouTube window is in front and the ad has a visible Skip button. Robert checks several common display sizes for the button. If he says he enabled skipping but does not click, capture the Skip button from that ad again and replace `assets\skip_button.png`; YouTube uses different button designs. If OpenCV is missing, install it with `python -m pip install opencv-python`.
 
 ---
 

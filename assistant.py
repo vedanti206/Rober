@@ -55,8 +55,8 @@ class Assistant:
             try:
                 if "youtube" in skills.foreground_title().lower() and skills.try_click_skip():
                     self.bridge.say.emit("Skipped an ad!", 2000)
-            except Exception:
-                pass
+            except Exception as e:
+                print("Auto-skip problem:", repr(e))
 
     # ------------------------------------------------------------ main entry
     def handle(self, text):
