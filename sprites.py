@@ -1,4 +1,4 @@
-"""Cuts Robert's picture sheet into small animation pictures."""
+"""Cuts Rober's picture sheet into small animation pictures."""
 import os
 
 from PyQt6.QtCore import Qt, QRect

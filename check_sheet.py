@@ -1,4 +1,4 @@
-"""Run:  python check_sheet.py   - shows if Robert's picture sheet matches the settings."""
+"""Run:  python check_sheet.py   - shows if Rober's picture sheet matches the settings."""
 from PIL import Image
 import config
 

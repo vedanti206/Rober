@@ -1,4 +1,4 @@
-"""Robert's ears (listening) and mouth (speaking)."""
+"""Rober's ears (listening) and mouth (speaking)."""
 import json
 import os
 import queue
@@ -10,7 +10,7 @@ import config
 
 # ====================================================================== MOUTH
 class Mouth:
-    """Speaks text out loud. Runs in its own thread so Robert never freezes."""
+    """Speaks text out loud. Runs in its own thread so Rober never freezes."""
 
     def __init__(self):
         self.q = queue.Queue()
@@ -25,7 +25,7 @@ class Mouth:
             engine = pyttsx3.init()
             engine.setProperty("rate", config.SPEECH_RATE)
         except Exception as e:
-            print("Robert cannot speak:", repr(e))
+            print("Rober cannot speak:", repr(e))
         while True:
             text, done = self.q.get()
             self.busy = True
@@ -79,7 +79,7 @@ class Ears:
             import sounddevice as sd
             import vosk
         except ImportError as e:
-            self.error = "Some voice parts are not installed (%s). Run install_robert.bat again." % e.name
+            self.error = "Some voice parts are not installed (%s). Run install_rober.bat again." % e.name
             return
         path = find_model_dir()
         if not path:
@@ -111,9 +111,9 @@ class Ears:
         except Exception:
             pass
 
-    # ---------- wait for the name "Robert"
+    # ---------- wait for the name "Rober"
     def listen_for_wake(self, interrupt):
-        """Blocks until Robert hears his name (True) or interrupt() says stop (False)."""
+        """Blocks until Rober hears his name (True) or interrupt() says stop (False)."""
         self.wake_rec.Reset()
         self._flush()
         last_trigger = 0

@@ -1,13 +1,13 @@
 """
-demo_pet.py - a tiny test pet so you can SEE the new Robert before touching your big project.
+demo_pet.py - a tiny test pet so you can SEE the new Rober before touching your big project.
   Run:   python demo_pet.py
-  - Drag Robert with the left mouse button
+  - Drag Rober with the left mouse button
   - Click him to open a small command box, type something (e.g. "play music", "study mode", "thank you") + Enter
   - Right-click = close
   - After 60 seconds of nothing he falls asleep; any click wakes him up
 """
 import tkinter as tk
-from robert_sprites import RobertSprites, mood_for_text
+from rober_sprites import RoberSprites, mood_for_text
 
 root = tk.Tk()
 root.overrideredirect(True)                       # no window border
@@ -18,7 +18,7 @@ root.geometry("+1000+500")
 
 label = tk.Label(root)
 label.pack()
-pet = RobertSprites(root, label, folder="sprites", height=150)
+pet = RoberSprites(root, label, folder="sprites", height=150)
 pet.set_mood("hello", hold_ms=3000)
 
 last_active = [0]
@@ -49,7 +49,7 @@ def open_box():
     if box["win"] and box["win"].winfo_exists():
         box["win"].focus_force(); return
     w = tk.Toplevel(root); box["win"] = w
-    w.attributes("-topmost", True); w.title("Tell Robert")
+    w.attributes("-topmost", True); w.title("Tell Rober")
     w.geometry(f"+{root.winfo_x()-40}+{root.winfo_y()+root.winfo_height()+5}")
     e = tk.Entry(w, width=34, font=("Segoe UI", 12)); e.pack(padx=8, pady=8); e.focus_force()
     def go(_=None):

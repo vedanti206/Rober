@@ -1,9 +1,9 @@
 """
-robert_sprites.py  -  gives Robert the Shiba puppy look + moods.
+rober_sprites.py  -  gives Rober the Shiba puppy look + moods.
 
-How to use inside your Robert app (3 steps):
-    from robert_sprites import RobertSprites, mood_for_text
-    pet = RobertSprites(root, label, folder="sprites", height=150)   # root = Tk(), label = tk.Label
+How to use inside your Rober app (3 steps):
+    from rober_sprites import RoberSprites, mood_for_text
+    pet = RoberSprites(root, label, folder="sprites", height=150)   # root = Tk(), label = tk.Label
     pet.set_mood("hello")                                            # change his picture/animation
     pet.set_mood(mood_for_text("open youtube and play music"))       # or pick mood from a sentence
 """
@@ -16,7 +16,7 @@ KEY = "#ff00fe"          # this colour becomes see-through in the Tkinter window
 # mood  ->  list of sprite names (they play one after another like an animation)
 MOODS = {
     "idle":      ["happy_sit", "hi_sit", "happy_blush", "hi_sit"],
-    "hello":     ["hi_big", "hi_wave", "hi_shy", "hi_wave"],            # wake word "Robert" heard / greeting
+    "hello":     ["hi_big", "hi_wave", "hi_shy", "hi_wave"],            # wake word "Rober" heard / greeting
     "listening": ["hi_bubble"],                                         # waiting for your command
     "thinking":  ["idea"],                                              # AI is making an answer
     "study":     ["read1", "read2", "read_glasses1", "read_glasses2", "idea"],
@@ -41,8 +41,8 @@ _RULES = [
     ("study",    ["study", "explain", "read", "notes", "summar", "translate", "what is", "define", "learn"]),
     ("win",      ["finished", "completed", "well done", "congrat", "i passed"]),
     ("kiss",     ["love you", "kiss", "muah", "miss you"]),
-    ("love",     ["thank", "good boy", "good robert", "nice", "great", "cute", "best"]),
-    ("hello",    ["hello", "hi ", "hey", "good morning", "robert"]),
+    ("love",     ["thank", "good boy", "good rober", "nice", "great", "cute", "best"]),
+    ("hello",    ["hello", "hi ", "hey", "good morning", "rober"]),
 ]
 
 def mood_for_text(text, default="done"):
@@ -53,7 +53,7 @@ def mood_for_text(text, default="done"):
     return default
 
 
-class RobertSprites:
+class RoberSprites:
     def __init__(self, root, label, folder="sprites", height=150, frame_ms=450):
         from PIL import ImageTk                       # imported here so the file can be tested without Tk
         self._ImageTk = ImageTk

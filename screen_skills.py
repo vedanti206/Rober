@@ -1,16 +1,16 @@
 """
-screen_skills.py  -  Robert's eyes and hands for the screen.
+screen_skills.py  -  Rober's eyes and hands for the screen.
 
 What it can do:
   skip_ad()                  click the YouTube "Skip" button when it appears
   read_screen_text()         read the words on the window in front (OCR)
   explain_screen(question)   read the window and explain it with the local AI
   prepare_chat_reply(text)   read your friend's last WhatsApp message and get a reply
-                             ready. It does NOT send anything. Robert must ask you
+                             ready. It does NOT send anything. Rober must ask you
                              yes/no first, and only then call result["send"]().
 
 Privacy: screenshots stay in memory. Nothing is saved to disk or uploaded.
-Safety:  Robert only clicks inside the app he was asked to work in.
+Safety:  Rober only clicks inside the app he was asked to work in.
          Move the mouse to a screen corner to stop him at any time (pyautogui failsafe).
 
 Test it by hand (open the window you want first, you get 5 seconds):
@@ -52,7 +52,7 @@ if os.path.exists(_TESS):
 pyautogui.FAILSAFE = True   # mouse into a corner = emergency stop
 pyautogui.PAUSE = 0.15
 
-# Robert only types and clicks in windows whose title contains one of these words
+# Rober only types and clicks in windows whose title contains one of these words
 CHAT_APPS = ["whatsapp"]
 
 
@@ -60,7 +60,7 @@ CHAT_APPS = ["whatsapp"]
 # Windows and screenshots
 # ---------------------------------------------------------------------------
 def front_window():
-    """The biggest window at the front (skips Robert himself, he is small).
+    """The biggest window at the front (skips Rober himself, he is small).
     Returns (title, left, top, width, height) or None."""
     if gw is None:
         return None
@@ -162,7 +162,7 @@ def find_skip_button(lines):
 
 
 def skip_ad(wait_seconds=15):
-    """Wait for the Skip button and click it. Returns a sentence for Robert to say."""
+    """Wait for the Skip button and click it. Returns a sentence for Rober to say."""
     end = time.time() + wait_seconds
     while time.time() < end:
         win = front_window()
@@ -227,7 +227,7 @@ def explain_screen(question=None):
     text = read_screen_text()
     if not text.strip():
         return "I could not read any words on the screen."
-    system = ("You are Robert, a friendly puppy helper. The text below was read from "
+    system = ("You are Rober, a friendly puppy helper. The text below was read from "
               "the user's screen by OCR, so it can have small mistakes. Answer in simple "
               "English, short and clear (under 80 words).")
     prompt = f"SCREEN TEXT:\n{text}\n\nUSER REQUEST: {question or 'Explain this and give the answer if there is a question.'}"
@@ -315,7 +315,7 @@ def send_chat_message(text, win):
 def prepare_chat_reply(reply_text=None):
     """Read the friend's message and get the reply ready (nothing is sent yet).
     Returns a dict:
-      on error:  {"error": "sentence for Robert to say"}
+      on error:  {"error": "sentence for Rober to say"}
       on success: {"friend_said", "reply", "ask", "send"}   (call result["send"]() after YES)
     """
     win = front_window()

@@ -1,4 +1,4 @@
-"""The helper thread: waits for 'Robert', listens, thinks, acts, answers."""
+"""The helper thread: waits for 'Rober', listens, thinks, acts, answers."""
 import queue
 import threading
 import time
@@ -20,7 +20,7 @@ class Controller:
     def __init__(self, bridge):
         self.bridge = bridge
         self.cmd_q = queue.Queue()          # typed commands
-        self.click_evt = threading.Event()  # set when you click Robert
+        self.click_evt = threading.Event()  # set when you click Rober
         self.running = True
         self._activity_lock = threading.Lock()
         self._activity_generation = 0
@@ -92,12 +92,12 @@ class Controller:
         self.ears = Ears(self.mouth)
         if self.ears.ok:
             self.bridge.state.emit("wave")
-            self._say("Woof! I am Robert. Say 'Robert' or click me. Right-click to type.", 7000)
+            self._say("Woof! I am Rober. Say 'Rober' or click me. Right-click to type.", 7000)
         else:
             err = self.ears.error
             self.ears = None
             self.bridge.state.emit("wave")
-            self._say("Woof! I am Robert. I cannot hear yet: %s Click me to type instead." % err, 20000)
+            self._say("Woof! I am Rober. I cannot hear yet: %s Click me to type instead." % err, 20000)
             print("EARS PROBLEM:", err)
 
         while self.running:
@@ -135,7 +135,7 @@ class Controller:
             text = self.ears.listen_command()
             if not text:
                 self.bridge.state.emit("idle")
-                self._say("I did not hear anything. Say 'Robert' to try again.", 4000)
+                self._say("I did not hear anything. Say 'Rober' to try again.", 4000)
                 return
             reply = self._process(text, shown_as="You said: " + text)
             if reply is None or not reply.followup:

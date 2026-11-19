@@ -1,17 +1,17 @@
 """
-Robert's settings. You can change these numbers and words safely.
-After changing something, close Robert and start him again.
+Rober's settings. You can change these numbers and words safely.
+After changing something, close Rober and start him again.
 """
 import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # ---------- Looks ----------
-SPRITE_SHEET = os.path.join(BASE_DIR, "assets", "robert_sheet.png")
+SPRITE_SHEET = os.path.join(BASE_DIR, "assets", "rober_sheet.png")
 SPRITE_DIR = os.path.join(BASE_DIR, "sprites")
 SHEET_COLUMNS = 8          # how many pictures across in the sheet
 SHEET_ROWS = 9             # how many rows in the sheet
-PET_SIZE = 140             # how big Robert is on screen (in pixels)
+PET_SIZE = 140             # how big Rober is on screen (in pixels)
 GAMES_ACTIVITY_SECONDS = 30
 
 # row number (starting at 0) and how many pictures that row really has
@@ -39,7 +39,7 @@ FRAME_MS = {
     "compliment_beautiful": 900, "compliment_incredible": 900,
     "compliment_special": 900, "compliment_lucky": 900,
 }
-# these play once (or twice) and then Robert goes back to idle
+# these play once (or twice) and then Rober goes back to idle
 ONESHOT_LOOPS = {"wave": 2, "jump": 2, "failed": 1}
 
 # ---------- Behaviour ----------
@@ -48,7 +48,7 @@ WALK_SPEED = 1             # pixels per step
 SLEEP_AFTER_SECONDS = 180  # falls asleep after 3 minutes of nothing
 
 # ---------- Ears (voice in) ----------
-WAKE_WORD = "robert"
+WAKE_WORD = "rober"
 USE_GOOGLE_SPEECH = True   # better listening (needs internet). False = fully offline
 LISTEN_WAIT_SECONDS = 6    # how long he waits for you to start talking
 LISTEN_MAX_SECONDS = 15    # longest sentence he will listen to

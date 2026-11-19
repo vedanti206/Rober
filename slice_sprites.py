@@ -16,7 +16,7 @@ os.makedirs(OUT, exist_ok=True)
 ROWS = [(0, 200, 7), (200, 400, 7), (400, 592, 7), (596, 816, 6),
         (820, 1032, 6), (1036, 1198, 6), (1198, 1403, 7)]
 
-# Name of every sticker, row by row (this is what Robert uses for his moods)
+# Name of every sticker, row by row (this is what Rober uses for his moods)
 NAMES = [
  ["read1","read2","read_glasses1","read_glasses2","idea","read_lying","read_sleepy"],
  ["chess1","chess2","chess3","chess_happy1","chess_cheer","chess_wink","chess_win"],

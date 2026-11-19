@@ -1,7 +1,7 @@
 @echo off
-title Installing Robert's parts
+title Installing Rober's parts
 echo.
-echo  Installing Robert's parts. Please wait, this can take a few minutes...
+echo  Installing Rober's parts. Please wait, this can take a few minutes...
 echo.
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt

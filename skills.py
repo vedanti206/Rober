@@ -1,4 +1,4 @@
-"""Everything Robert can DO with his hands: open things, change volume, weather, notes, etc."""
+"""Everything Rober can DO with his hands: open things, change volume, weather, notes, etc."""
 import datetime
 import json
 import os
@@ -17,7 +17,7 @@ import config
 class Reply:
     text: str                         # shown in the bubble
     state: str = "jump"               # animation after answering
-    followup: bool = False            # True = Robert listens again right away
+    followup: bool = False            # True = Rober listens again right away
     speak_text: Optional[str] = None  # if different from text
     action: Optional[str] = None      # "quit" etc.
     activity_seconds: Optional[int] = None
@@ -148,16 +148,16 @@ def brightness_change(delta=None, absolute=None):
 
 def screenshot(bridge=None):
     from PIL import ImageGrab
-    folder = os.path.join(os.path.expanduser("~"), "Pictures", "Robert Screenshots")
+    folder = os.path.join(os.path.expanduser("~"), "Pictures", "Rober Screenshots")
     os.makedirs(folder, exist_ok=True)
-    path = os.path.join(folder, "robert_" + time.strftime("%Y%m%d_%H%M%S") + ".png")
+    path = os.path.join(folder, "rober_" + time.strftime("%Y%m%d_%H%M%S") + ".png")
     try:
         if bridge:
             bridge.hide_pet.emit()      # hide myself so I am not in the picture
             time.sleep(0.5)
         img = ImageGrab.grab(all_screens=True)
         img.save(path)
-        return Reply("Screenshot saved in Pictures, in the Robert Screenshots folder.")
+        return Reply("Screenshot saved in Pictures, in the Rober Screenshots folder.")
     except Exception:
         return fail("I could not take a screenshot.")
     finally:
